@@ -1,9 +1,23 @@
 import axios from 'axios'
-
+import queryString from "query-string"
 
 const privateAxiosRequest = axios.create({
-    baseURL: 'http://localhost:3000/api/v1',
-    headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+    baseURL: 'http://localhost:6161/api/v1',
+    paramsSerializer: {
+        encode: (params) => queryString.stringify(params),
     }
 })
+
+
+privateAxiosRequest.interceptors.response.use(
+    (response) => {
+      if (response && response.data) return response.data;
+      return response;
+    },
+    (err) => {
+      throw err.response.data;
+    }
+  );
+  
+
+export default privateAxiosRequest;
