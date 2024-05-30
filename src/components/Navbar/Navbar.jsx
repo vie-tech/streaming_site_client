@@ -17,7 +17,7 @@ const Navbar = () => {
        
          <img src="assets/img/logo.png" alt=""/>
         <i className="bi bi-camera"></i>
-        <h1>Bumble</h1>
+        <h1>Cloak</h1>
       </a>
 
       <nav id="navbar" className="navbar">
@@ -43,7 +43,10 @@ const Navbar = () => {
     </div>
   </header>
     </div>
+    <div className='outlet'>
     <Outlet/>
+    </div>
+    
     </>
    
   )

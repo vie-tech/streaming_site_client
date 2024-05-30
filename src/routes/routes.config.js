@@ -1,7 +1,7 @@
 import Home from "../pages/Home";
 import Audience from "../pages/Audience";
 import Videos from "../pages/Videos";
-import Host from '../pages/Host'
+import CredentialFetching from '../pages/Host'
 
 
 const routes = [
@@ -26,7 +26,7 @@ const routes = [
 
     {
         name: 'live',
-        element: <Host/>,
+        element: <CredentialFetching/>,
         path: '/live',
     }
 ]

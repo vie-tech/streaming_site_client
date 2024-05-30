@@ -2,7 +2,7 @@ import axios from 'axios'
 import queryString from "query-string"
 
 const privateAxiosRequest = axios.create({
-    baseURL: 'http://localhost:6161/api/v1',
+    baseURL: 'http://localhost:6161/api/',
     paramsSerializer: {
         encode: (params) => queryString.stringify(params),
     }

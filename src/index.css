@@ -1263,3 +1263,9 @@ h6 {
 .footer .credits a {
   color: var(--color-primary);
 }
+
+
+.outlet { /* Adjust class name as needed */
+  padding-top: 100px; /* Adjust padding amount */
+  min-height: calc(100vh - 80px); /* Set minimum height for content area (optional) */
+}
