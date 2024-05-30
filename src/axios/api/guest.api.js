@@ -49,6 +49,17 @@ const guestApi = {
             console.log(err.message)
         }
     
+    },
+
+    endCallForGuest: async (guestId)=>{
+        try{
+            const endpoints = `/guest/end_guest_call?guestId=${guestId}`
+            const response = await privateAxiosRequest.put(endpoints)
+            const data = await response 
+            console.log(data)
+        }catch(err){
+            console.log(err.message)
+        }
     }
 
 }
