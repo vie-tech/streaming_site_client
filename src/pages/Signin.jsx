@@ -25,7 +25,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import CircularProgress from '@mui/joy/CircularProgress';
 import {useDispatch} from 'react-redux'
-importt
+import { setIsLoggedIn } from "../redux/features/appSlice.js";
 
 function ColorSchemeToggle(props) {
   const { onClick, ...other } = props;
