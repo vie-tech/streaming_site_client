@@ -10,6 +10,7 @@ import AudienceVideo  from './segments/AudienceVideo.jsx'
 import Spinner from '../assets/utility/Spinner'
 import FailedConnection from '../assets/utility/Spinner'
 
+
 const AudienceCredentialFetching = () => {
   const { isLoggedIn } = useSelector((state) => state.appState);
   const apiKey = "s6b78s6su45k";
