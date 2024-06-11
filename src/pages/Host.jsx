@@ -1,55 +1,68 @@
 import React, {useState, useEffect} from 'react'
 import guestApi from '../axios/api/guest.api'
+import userApi from '../axios/api/user.api';
 import { StreamVideoClient, StreamVideo, StreamCall} from '@stream-io/video-react-sdk';
 import Spinner from '../assets/utility/Spinner'
 import Hostvideo from './segments/Hostvideo';
 import '@stream-io/video-react-sdk/dist/css/styles.css'
+import {useSelector} from 'react-redux'
 
 const CredentialFetching = ()=>{
 
   //AT THE END OF THE DAY YOU'RE GOING TO TURN THIS THE MAIN AUDIENCE FUNCITON BECAUSE STREAM SDK COMES WITH A TYPE GUEST FUNCTION
-  
+  const {isLoggedIn} = useSelector((state)=>state.appState)
   const apiKey = "s6b78s6su45k"
-  console.log(apiKey, 'This is api key')
+
   const [token, setToken] = useState('')
-  const [guestId, setGuestId] = useState('')
+  const [callerName, setCallerName] = useState('')
   const [callId, setCallId] = useState('')
   const user = {
-    id: localStorage.getItem('guestId'),
-    role: 'host'
+    id: isLoggedIn ? localStorage.getItem('userId'): localStorage.getItem('guestId'),
+    role: isLoggedIn ? 'host' : "anonymous",
+
   }
   
 
   useEffect(()=>{
    async function init(){
-    const guestId = localStorage.getItem('guestId')
-    setGuestId(guestId)
-    if(!guestId) return 
-     const callId = localStorage.getItem('channelName')
+    const callerName = isLoggedIn ? localStorage.getItem('userId') : localStorage.getItem('guestId')
+    setCallerName(callerName)
+    if(!callerName) return 
+     const callId = isLoggedIn ? localStorage.getItem('user_call_id') : localStorage.getItem('guest_call_id') //retrieve from server if logged in
      setCallId(callId)
-     const response = await guestApi.getJwtTokenForGuest(guestId)
-     setToken(response)
-     console.log( response, user)
+
+     if(!isLoggedIn){
+      const response = await guestApi.getJwtTokenForGuest(callerName)
+      setToken(response)
+     }else{
+      const response = await userApi.getJwtTokenForUser(callerName)
+      console.log(response)
+      const token = await response.token
+      setToken(token)
+     }
+    
+    
+
    }
 
    init()
 
   }, [])
   
-
-  if(!token || !guestId || !callId || !user ) {
+  console.log(token, callerName)
+  if(!token || !callerName || !callId || !user ) {
     return <Spinner/>
   }
 
   return <>
-  <Host token={token} guestId={guestId} user={user} callId={callId} apiKey={apiKey}/>
+  <Host token={token} callerName={callerName} user={user} callId={callId} apiKey={apiKey}/>
   </>
 }
 
 
 
 
-const Host = ({token, user, callId, apiKey, guestId}) => {
+const Host = ({token, user, callId, apiKey, callerName}) => {
 
   const client = new StreamVideoClient({apiKey, token, user})
   const call = client.call('livestream', callId)
@@ -63,7 +76,7 @@ const Host = ({token, user, callId, apiKey, guestId}) => {
 
     return () => {
       call.endCall().then(()=>{
-        guestApi.endCallForGuest(guestId).then((data)=>{
+        guestApi.endCallForGuest(callerName).then((data)=>{
           console.log(data)
          }).catch((err)=>{
           console.log(err)

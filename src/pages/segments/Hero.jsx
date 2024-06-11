@@ -13,8 +13,8 @@ const Hero = () => {
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-lg-6 text-center">
-          <h2> Stream anonymously <span>Jenny Wilson</span> a Professional Photographer from New York City</h2>
-          <p>Blanditiis praesentium aliquam illum tempore incidunt debitis dolorem magni est deserunt sed qui libero. Qui voluptas amet.</p>
+          <h2>  Stream yourself anonymously.  <span>No sign-ups, no hassle.</span> Go live, stay private.</h2>
+          <p>Share your moments live, while keeping your identity private, and enjoy a seamless and secure streaming experience.</p>
           <button href="contact.html" className="btn-get-started" onClick={startStream}>start your stream</button>
         </div>
       </div>

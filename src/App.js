@@ -7,11 +7,11 @@ function App() {
    <>
   <Routes>
         <Route path="/" element={<Navbar/>}>
-          {routes.map((route)=>{
+          {routes.map((route, index)=>{
            return route.index ? (
-            <Route index element={route.element}/>
+            <Route index element={route.element} key={index}/>
             ) : (
-              <Route path={route.path} element={route.element} />
+              <Route path={route.path} element={route.element} key={index}/>
             )
           })}
         </Route>

@@ -26,7 +26,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import CircularProgress from '@mui/joy/CircularProgress';
 import {useDispatch} from 'react-redux'
 import { setIsLoggedIn } from "../redux/features/appSlice.js";
-
+import {useNavigate} from "react-router-dom"
 function ColorSchemeToggle(props) {
   const { onClick, ...other } = props;
   const { mode, setMode } = useColorScheme();
@@ -59,6 +59,9 @@ export default function Signin() {
     email: "",
     password: "",
   });
+ 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   function handleChange(event) {
     setFormData((prev) => ({
@@ -75,9 +78,10 @@ export default function Signin() {
         formData.email,
         formData.password
       );
-    
       setMessage(response.message)
       setLoading(false)
+      dispatch(setIsLoggedIn(true))
+      navigate('/')
     } catch (err) {
       setError(err.message);
       setLoading(false)
