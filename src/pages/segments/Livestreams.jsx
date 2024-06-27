@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom'
 
 const Livestreams = () => {
     const [streams, setStreams] = useState([])
+    console.log('these are the streams ...' + streams)
     const navigate = useNavigate()
 
     function joinChannel(channel){
@@ -25,7 +26,7 @@ const Livestreams = () => {
   return (
     <section id="gallery" className="gallery">
     <div className="container-fluid">
-      {streams && streams.map((stream)=>{
+      {streams.channels && streams.channels.map((stream)=>{
        return <div className="row gy-4 justify-content-center" onClick={()=>joinChannel(stream.guestChannelName)}>
         <div className="col-xl-3 col-lg-4 col-md-6">
           <div className="gallery-item h-100">
@@ -42,6 +43,7 @@ const Livestreams = () => {
       
 
     </div>
+
   </section>
   )
 }

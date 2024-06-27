@@ -11,6 +11,7 @@ const CredentialFetching = ()=>{
 
   //AT THE END OF THE DAY YOU'RE GOING TO TURN THIS THE MAIN AUDIENCE FUNCITON BECAUSE STREAM SDK COMES WITH A TYPE GUEST FUNCTION
   const {isLoggedIn} = useSelector((state)=>state.appState)
+  console.log(isLoggedIn)
   const apiKey = "s6b78s6su45k"
 
   const [token, setToken] = useState('')
@@ -37,8 +38,7 @@ const CredentialFetching = ()=>{
      }else{
       const response = await userApi.getJwtTokenForUser(callerName)
       console.log(response)
-      const token = await response.token
-      setToken(token)
+      setToken(response)
      }
     
     
@@ -49,7 +49,7 @@ const CredentialFetching = ()=>{
 
   }, [])
   
-  console.log(token, callerName)
+
   if(!token || !callerName || !callId || !user ) {
     return <Spinner/>
   }
@@ -61,9 +61,8 @@ const CredentialFetching = ()=>{
 
 
 
-
 const Host = ({token, user, callId, apiKey, callerName}) => {
-
+  console.log(token, callId, callerName)
   const client = new StreamVideoClient({apiKey, token, user})
   const call = client.call('livestream', callId)
   call.join({create: true}).then(()=>{
@@ -76,6 +75,8 @@ const Host = ({token, user, callId, apiKey, callerName}) => {
 
     return () => {
       call.endCall().then(()=>{
+        localStorage.removeItem('guestId')
+        localStorage.removeItem('guest_call_id')
         guestApi.endCallForGuest(callerName).then((data)=>{
           console.log(data)
          }).catch((err)=>{

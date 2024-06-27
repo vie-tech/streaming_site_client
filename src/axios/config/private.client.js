@@ -5,7 +5,8 @@ const privateAxiosRequest = axios.create({
     baseURL: 'http://localhost:6161/api/',
     paramsSerializer: {
         encode: (params) => queryString.stringify(params),
-    }
+    },
+    withCredentials: true
 })
 
 

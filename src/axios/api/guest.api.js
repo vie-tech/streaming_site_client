@@ -7,9 +7,10 @@ const guestApi = {
             const endpoints = '/guest/get_guestId'
             const response = await privateAxiosRequest.get(endpoints)
             console.log(response)
-            const {guestId, callId} = await response
-            localStorage.setItem('guestId', guestId)
-            localStorage.setItem('guest_call_id', callId )
+            const {guest_id, guest_channel} =  response
+            console.log(guest_id, guest_channel)
+            localStorage.setItem('guestId', guest_id)
+            localStorage.setItem('guest_call_id', guest_channel )
         }catch(err){
             console.log(err)
         }

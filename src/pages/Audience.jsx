@@ -14,13 +14,12 @@ import FailedConnection from '../assets/utility/Spinner'
 const AudienceCredentialFetching = () => {
   const { isLoggedIn } = useSelector((state) => state.appState);
   const apiKey = "s6b78s6su45k";
-  console.log(apiKey, "This is api key");
   const [token, setToken] = useState("");
   const [guestId, setGuestId] = useState("");
   const [callId, setCallId] = useState("");
   const user = {
     id: localStorage.getItem("guestId"),
-    type: isLoggedIn ? "username" : "anonymous",
+    role: 'guest'
   };
 
   useEffect(() => {
@@ -69,7 +68,7 @@ const Audience = ({ apiKey, callId, token, user, isLoggedIn }) => {
   if(isLoggedIn){
     clientInstance = new StreamVideoClient({ apiKey, token, user });
   }else{
-    clientInstance = new StreamVideoClient({ apiKey, user });
+    clientInstance = new StreamVideoClient({ apiKey, token, user });
   }
   setClient(clientInstance)
 

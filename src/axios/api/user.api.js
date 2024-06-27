@@ -32,7 +32,7 @@ const userApi = {
 
   getJwtTokenForUser: async (userId)=>{
     try{
-        const endpoints = `/guest/get_user_token?userId=${userId}`;
+        const endpoints = `/user/get_user_token?userId=${userId}`;
         const response = await privateAxiosRequest.get(endpoints)
         const data = await response.token
         return data
